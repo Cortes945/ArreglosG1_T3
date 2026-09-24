@@ -9,6 +9,7 @@ namespace Arreglos.Logica
         //Atributos o campos
         private int _tope;
         private int[] _arreglo;
+        private int i;
 
         //Constructor
         public MiArreglo(int n)
@@ -36,6 +37,42 @@ namespace Arreglos.Logica
             _tope = N;
         }
 
+        //Metodo ordenar (burbuja)
+
+        public void Ordenar(bool ascendente)
+        {
+            for (int i = 0; i < _tope; i++)
+            {
+                for (int j = i + 1; j < _tope; j++)
+                {
+                    if (ascendente)
+                    {
+                        if (_arreglo[i] > _arreglo[j])
+                        {
+                            Cambiar(ref _arreglo[i], ref _arreglo[j]);
+                        }
+                    }
+                    else 
+
+                    {
+                        if (_arreglo[i] < _arreglo[j])
+                        {
+                            Cambiar(ref _arreglo[i],ref _arreglo[j]);
+                        }
+                    }
+                }
+            }
+        }
+        //Metodo cambiar
+
+
+        public void Cambiar(ref int a,ref int b)
+        {
+            int aux = a;
+            a = b;
+            b = aux;
+        }
+
 
         //Metodo ToString
 
@@ -48,7 +85,7 @@ namespace Arreglos.Logica
 
             string cadena=string.Empty;
             int contador = 0;
-            for (int i = 0;i < _tope-1; i++)
+            for (int i = 0;i < _tope; i++)
             { 
               //Cadena = cadena + _arreglo[i];
               cadena += $"{_arreglo[i]}\t";
