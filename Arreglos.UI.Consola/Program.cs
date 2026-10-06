@@ -8,11 +8,19 @@ try
 {
     oMiArreglo.Agregar(7);
     oMiArreglo.Agregar(-2);
+    oMiArreglo.Agregar(8);
+
     Console.WriteLine(oMiArreglo);
 
+    Console.WriteLine("Insertar 500 en la posicion 1");
     Console.ReadKey();
-    oMiArreglo.Insertar(500, 6);
+    oMiArreglo.Insertar(500, 1);
+    Console.WriteLine(oMiArreglo);
 
+    Console.WriteLine("Eliminar 500 en la posicion 1");
+    Console.ReadKey();
+    oMiArreglo.Eliminar(1);
+    Console.WriteLine(oMiArreglo);
 
 }
 catch (Exception ex) 
@@ -21,7 +29,6 @@ catch (Exception ex)
 }
 
 
-Console.WriteLine(oMiArreglo);
 
 //oMiArreglo.Llenar(1, 20);
 
