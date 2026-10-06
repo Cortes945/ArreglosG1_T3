@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Arreglos.Logica
 {
@@ -71,6 +72,18 @@ namespace Arreglos.Logica
             int aux = a;
             a = b;
             b = aux;
+        }
+
+        //Metodo agregar
+
+        public void Agregar(int numero)
+        {
+            if (EstaLleno)
+            {
+                throw new Exception("El arreglo esta lleno");
+            }
+            _arreglo[_tope] = numero;
+            _tope++;
         }
 
 
