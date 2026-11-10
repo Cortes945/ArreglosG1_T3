@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Arreglos.Logica
 {
@@ -10,7 +10,6 @@ namespace Arreglos.Logica
         //Atributos o campos
         private int _tope;
         private int[] _arreglo;
-        private int i;
 
         //Constructor
         public MiArreglo(int n)
@@ -23,51 +22,72 @@ namespace Arreglos.Logica
         //Propiedades
         public int N { get; }
         public bool EstaLleno => _tope == N;
-
         public bool EstaVacio => _tope == 0;
 
-        //Metodos
-        //Metodos Llenar
+        //Métodos
+        public void Llenar()
+        {
+            Llenar(1, 100);
+        }
+
+
+
+        //Metodo llenar con parametros
         public void Llenar(int minimo, int maximo)
         {
             Random oRandom = new Random();
+
             for (int i = 0; i < N; i++)
             {
                 _arreglo[i] = oRandom.Next(minimo, maximo);
+
             }
             _tope = N;
         }
 
-        //Metodo ordenar (burbuja)
+        //Método burbuja
+
+        public void Ordenar()
+        {
+            Ordenar(true);
+        }
+
+
+
+
 
         public void Ordenar(bool ascendente)
         {
-            for (int i = 0; i < _tope; i++)
+            for (int i = 0; i < _tope - 1; i++)
             {
                 for (int j = i + 1; j < _tope; j++)
                 {
                     if (ascendente)
                     {
+
                         if (_arreglo[i] > _arreglo[j])
                         {
                             Cambiar(ref _arreglo[i], ref _arreglo[j]);
                         }
                     }
-                    else 
-
+                    else
                     {
                         if (_arreglo[i] < _arreglo[j])
                         {
-                            Cambiar(ref _arreglo[i],ref _arreglo[j]);
+                            Cambiar(ref _arreglo[i], ref _arreglo[j]);
                         }
+
                     }
                 }
+
+
             }
         }
-        //Metodo cambiar
 
 
-        public void Cambiar(ref int a,ref int b)
+        //Método cambiar
+
+        public void Cambiar(ref int a, ref int b)
         {
             int aux = a;
             a = b;
@@ -86,19 +106,20 @@ namespace Arreglos.Logica
             _tope++;
         }
 
-        //Metodo Insertar
+        //Método Insertar
 
-        public void Insertar(int numero, int posicion) 
+        public void Insertar(int numero, int posicion)
         {
-            if (EstaLleno) 
+            if (EstaLleno)
             {
                 throw new Exception("El arreglo esta lleno");
             }
-            if (posicion < 0) 
+
+            if (posicion < 0)
             {
                 posicion = 0;
             }
-            if (posicion > _tope) 
+            if (posicion > _tope)
             {
                 posicion = _tope;
             }
@@ -106,64 +127,92 @@ namespace Arreglos.Logica
             for (int i = _tope; i > posicion; i--)
             {
                 _arreglo[i] = _arreglo[i - 1];
-
             }
             _arreglo[posicion] = numero;
             _tope++;
+
         }
 
         //Método Eliminar
-
-        public void Eliminar(int posicion) 
+        public void Eliminar(int posicion)
         {
-            if (EstaVacio) 
+            if (EstaVacio)
             {
                 throw new Exception("El arreglo esta vacio");
             }
-            if (posicion < 0) 
+            if (posicion < 0)
             {
-                posicion=0;
+                posicion = 0;
             }
             if (posicion > _tope)
             {
                 posicion = _tope;
             }
-
-            for (int i = posicion;i < _tope-1; i++) 
+            for (int i = posicion; i < _tope - 1; i++)
             {
-                _arreglo[i]= _arreglo[i + 1];
+                _arreglo[i] = _arreglo[i + 1];
             }
             _tope--;
+
+
+        }
+
+        public MiArreglo ObtenerPares()
+        {
+
+            int contadorPares = 0;
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] % 2 == 0)
+                {
+                    contadorPares++;
+                }
+            }
+
+            var arregloPares = new MiArreglo(contadorPares);
+
+            for (int i = 0; i < _tope; i++)
+            {
+                if (_arreglo[i] % 2 == 0)
+                {
+                    arregloPares.Agregar(_arreglo[i]);
+                }
+            }
+
+            return arregloPares;
         }
 
 
-        //Metodo ToString
+        //Método ToString
 
         public override string ToString()
         {
+
             if (EstaVacio)
             {
                 return "Esta vacio";
             }
 
-            string cadena=string.Empty;
+            String cadena = string.Empty;
             int contador = 0;
-            for (int i = 0;i < _tope; i++)
-            { 
-              //Cadena = cadena + _arreglo[i];
-              cadena += $"{_arreglo[i]}\t";
+
+            for (int i = 0; i < _tope; i++)
+            {
+                //cadena = cadena + _arreglo[i]
+                cadena += $"{_arreglo[i]}\t";
                 contador++;
+
                 if (contador > 9)
                 {
                     contador = 0;
                     cadena += "\n";
                 }
-                
+
 
             }
-
-            return cadena;  
+            return cadena;
         }
+
 
     }
 }
