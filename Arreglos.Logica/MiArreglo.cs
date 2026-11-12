@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Text;
 
 namespace Arreglos.Logica
@@ -17,48 +16,43 @@ namespace Arreglos.Logica
             N = n;
             _arreglo = new int[N];
             _tope = 0;
+
         }
+
 
         //Propiedades
         public int N { get; }
         public bool EstaLleno => _tope == N;
         public bool EstaVacio => _tope == 0;
 
-        //Métodos
+
+        //Metodos
+        //Método Llenar
+        public void Llenar(int minimo, int maximo)
+        {
+            Random oRandom = new Random();
+            for (int i = 0; i < N; i++)
+            {
+                _arreglo[i] = oRandom.Next(minimo, maximo);
+            }
+            _tope = N;
+
+        }
         public void Llenar()
         {
             Llenar(1, 100);
         }
 
-
-
-        //Metodo llenar con parametros
-        public void Llenar(int minimo, int maximo)
-        {
-            Random oRandom = new Random();
-
-            for (int i = 0; i < N; i++)
-            {
-                _arreglo[i] = oRandom.Next(minimo, maximo);
-
-            }
-            _tope = N;
-        }
-
-        //Método burbuja
+        //Método ordenar(Burbuja)
 
         public void Ordenar()
         {
             Ordenar(true);
         }
 
-
-
-
-
         public void Ordenar(bool ascendente)
         {
-            for (int i = 0; i < _tope - 1; i++)
+            for (int i = 0; i < _tope; i++)
             {
                 for (int j = i + 1; j < _tope; j++)
                 {
@@ -76,17 +70,12 @@ namespace Arreglos.Logica
                         {
                             Cambiar(ref _arreglo[i], ref _arreglo[j]);
                         }
-
                     }
                 }
-
-
             }
+
         }
-
-
-        //Método cambiar
-
+        //Método Cambiar
         public void Cambiar(ref int a, ref int b)
         {
             int aux = a;
@@ -94,8 +83,7 @@ namespace Arreglos.Logica
             b = aux;
         }
 
-        //Metodo agregar
-
+        //Método agregar
         public void Agregar(int numero)
         {
             if (EstaLleno)
@@ -104,17 +92,16 @@ namespace Arreglos.Logica
             }
             _arreglo[_tope] = numero;
             _tope++;
+
         }
 
         //Método Insertar
-
         public void Insertar(int numero, int posicion)
         {
             if (EstaLleno)
             {
                 throw new Exception("El arreglo esta lleno");
             }
-
             if (posicion < 0)
             {
                 posicion = 0;
@@ -130,15 +117,14 @@ namespace Arreglos.Logica
             }
             _arreglo[posicion] = numero;
             _tope++;
-
         }
 
-        //Método Eliminar
+        //Méttodo Eliminar
         public void Eliminar(int posicion)
         {
             if (EstaVacio)
             {
-                throw new Exception("El arreglo esta vacio");
+                throw new Exception("El arreglo esta vacío");
             }
             if (posicion < 0)
             {
@@ -154,15 +140,10 @@ namespace Arreglos.Logica
             }
             _tope--;
 
-
         }
 
-        //metodo par
-
-        //Metodo Obtener Pares 
         public MiArreglo ObtenerPares()
         {
-
             int contadorPares = 0;
             for (int i = 0; i < _tope; i++)
             {
@@ -181,11 +162,10 @@ namespace Arreglos.Logica
                     arregloPares.Agregar(_arreglo[i]);
                 }
             }
-
             return arregloPares;
         }
 
-        //Mpetodo ObtenerPrimos
+        //Método Obtener Primos
 
         public MiArreglo ObtenerPrimos()
         {
@@ -197,68 +177,62 @@ namespace Arreglos.Logica
                 {
                     contadorPrimos++;
                 }
-
             }
-
             var arregloPrimos = new MiArreglo(contadorPrimos);
 
             for (int i = 0; i < _tope; i++)
             {
+
                 if (_arreglo[i] == 1) { continue; }
                 if (EsPrimo(_arreglo[i]))
                 {
                     arregloPrimos.Agregar(_arreglo[i]);
                 }
             }
-
             return arregloPrimos;
         }
-
-        //método es primo
+        //Método EsPrimo
         private bool EsPrimo(int n)
         {
             for (int i = 2; i < n; i++)
             {
-
                 if (n % i == 0)
                 {
                     return false;
                 }
             }
             return true;
-
         }
 
-        //Método ToString
 
+        //Método ToString
         public override string ToString()
         {
 
             if (EstaVacio)
             {
-                return "Esta vacio";
+                return "Esta Vacio";
             }
 
-            String cadena = string.Empty;
+            string cadena = string.Empty;
             int contador = 0;
-
             for (int i = 0; i < _tope; i++)
             {
-                //cadena = cadena + _arreglo[i]
+
+                //cadena = cadena + _arreglo[i];
                 cadena += $"{_arreglo[i]}\t";
                 contador++;
-
                 if (contador > 9)
                 {
                     contador = 0;
                     cadena += "\n";
                 }
-
-
             }
+
+
             return cadena;
         }
 
-
     }
 }
+
